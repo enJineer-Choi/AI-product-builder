@@ -1,8 +1,7 @@
-const lottoNumbersContainer = document.getElementById('lotto-numbers');
-const generateBtn = document.getElementById('generate-btn');
+const resultArea = document.getElementById('result-area');
+const recommendBtn = document.getElementById('recommend-btn');
 const themeToggleBtn = document.getElementById('theme-toggle');
-
-const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A1', '#A133FF', '#33FFA1'];
+const radioButtons = document.getElementsByName('meal-type');
 
 // Theme Logic
 const savedTheme = localStorage.getItem('theme');
@@ -20,38 +19,55 @@ themeToggleBtn.addEventListener('click', () => {
   localStorage.setItem('theme', newTheme);
 });
 
-// Lotto Logic
-function generateLottoNumbers() {
-  const numbers = new Set();
-  while (numbers.size < 6) {
-    const randomNumber = Math.floor(Math.random() * 45) + 1;
-    numbers.add(randomNumber);
+// Menu Data
+const lunchMenus = [
+  "Kimchi Stew (Kimchi-jjigae)", 
+  "Burger", 
+  "Club Sandwich", 
+  "Ramen", 
+  "Bibimbap", 
+  "Pork Cutlet (Tonkatsu)", 
+  "Carbonara Pasta", 
+  "Caesar Salad",
+  "Subway Sandwich",
+  "Gimbap"
+];
+
+const dinnerMenus = [
+  "Fried Chicken", 
+  "Pepperoni Pizza", 
+  "Sushi Platter", 
+  "Grilled Pork Belly (Samgyeopsal)", 
+  "Ribeye Steak", 
+  "Tacos", 
+  "Chicken Curry", 
+  "Sashimi",
+  "Lamb Skewers",
+  "Spicy Stir-fried Octopus"
+];
+
+function getSelectedMealType() {
+  for (const radio of radioButtons) {
+    if (radio.checked) {
+      return radio.value;
+    }
   }
-  return Array.from(numbers).sort((a, b) => a - b);
+  return 'lunch'; // Default
 }
 
-function displayNumbers(numbers) {
-  lottoNumbersContainer.innerHTML = '';
-  // Disable button while animating
-  generateBtn.disabled = true;
+function recommendMenu() {
+  const mealType = getSelectedMealType();
+  const menuList = mealType === 'lunch' ? lunchMenus : dinnerMenus;
+  const randomMenu = menuList[Math.floor(Math.random() * menuList.length)];
   
-  numbers.forEach((number, index) => {
-    setTimeout(() => {
-      const numberElement = document.createElement('div');
-      numberElement.classList.add('lotto-number');
-      numberElement.style.backgroundColor = colors[index % colors.length];
-      numberElement.textContent = number;
-      lottoNumbersContainer.appendChild(numberElement);
+  // Simple loading effect
+  resultArea.innerHTML = '<span class="placeholder">Choosing...</span>';
+  recommendBtn.disabled = true;
 
-      // Re-enable button after last number
-      if (index === numbers.length - 1) {
-        generateBtn.disabled = false;
-      }
-    }, index * 300); // 300ms delay for faster feel
-  });
+  setTimeout(() => {
+    resultArea.innerHTML = `<div class="result-text">${randomMenu}</div>`;
+    recommendBtn.disabled = false;
+  }, 500);
 }
 
-generateBtn.addEventListener('click', () => {
-  const lottoNumbers = generateLottoNumbers();
-  displayNumbers(lottoNumbers);
-});
+recommendBtn.addEventListener('click', recommendMenu);

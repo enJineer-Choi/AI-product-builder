@@ -3,15 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Lotto Number Generator</title>
+  <title>Menu Recommender</title>
   <link href='/style.css' rel='stylesheet'>
 </head>
 <body>
   <div class="container">
     <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark Mode">🌓</button>
-    <h1>Lotto Number Generator</h1>
-    <div id="lotto-numbers" class="lotto-numbers"></div>
-    <button id="generate-btn">Generate Numbers</button>
+    <h1>What to Eat?</h1>
+    
+    <div class="meal-selector">
+      <label class="radio-label">
+        <input type="radio" name="meal-type" value="lunch" checked>
+        <span class="radio-custom">Lunch ☀️</span>
+      </label>
+      <label class="radio-label">
+        <input type="radio" name="meal-type" value="dinner">
+        <span class="radio-custom">Dinner 🌙</span>
+      </label>
+    </div>
+
+    <div id="result-area" class="result-area">
+      <span class="placeholder">Select a meal type and click the button!</span>
+    </div>
+    
+    <button id="recommend-btn">Recommend Menu</button>
   </div>
   <script type="module" src="/main.js"></script>
 </body>

@@ -1,28 +1,28 @@
-# Lotto Number Generator
+# Menu Recommender
 
 ## Overview
 
-This is a simple web application that generates and displays a set of 6 unique lottery numbers from 1 to 45. The numbers are displayed one by one with a colorful animation. It supports both Dark and Light modes.
+A web application that helps users decide what to eat for lunch or dinner. Users can select the meal type, and the app randomly recommends a delicious option.
 
 ## Features
 
-*   **Number Generation:** Generates 6 unique random numbers between 1 and 45.
-*   **One-by-One Display:** Numbers appear sequentially, not all at once.
-*   **Colorful UI:** Each number is displayed in a colored circle.
-*   **On-Demand Generation:** A button allows the user to generate a new set of numbers at any time.
-*   **Dark/Light Mode:** Users can toggle between dark and light themes. The preference is saved.
+*   **Meal Type Selection:** Users can choose between "Lunch" and "Dinner".
+*   **Random Recommendation:** Randomly selects a menu item from a curated list based on the selected meal type.
+*   **Visual Feedback:** Displays the recommended menu with a clear, appetizing presentation.
+*   **Dark/Light Mode:** Supports both dark and light themes for comfortable viewing at any time of day.
 
-## Current Plan (Dark Mode Implementation)
+## Technical Details
 
-1.  **CSS:**
-    *   Introduce CSS variables for colors (background, text, container).
-    *   Create a `[data-theme="dark"]` selector to override variables.
-    *   Style the theme toggle button.
-2.  **HTML:**
-    *   Add a button to toggle the theme.
-3.  **JavaScript:**
-    *   Check `localStorage` for saved theme preference on load.
-    *   Implement toggle logic to switch `data-theme` attribute on `<html>`.
-    *   Save the new preference to `localStorage`.
-4.  **Deployment:**
-    *   Commit and push changes to GitHub.
+*   **HTML:** Semantic structure with radio buttons for selection and a display area for results.
+*   **CSS:** Responsive design with modern styling. Retains the previous dark/light mode capability.
+*   **JavaScript:** Logic to handle user selection and random array sampling.
+
+## Current Plan (Transformation from Lotto App)
+
+1.  **Refactor HTML:** Change titles, remove lotto specific elements, add meal type selectors (Lunch/Dinner).
+2.  **Update CSS:** Adjust styles for the new layout (menu card vs number circles).
+3.  **Rewrite JavaScript:**
+    *   Define arrays for Lunch and Dinner menus.
+    *   Implement logic to pick a random item based on selection.
+    *   Update the UI with the result.
+4.  **Deployment:** Commit and push to GitHub.
