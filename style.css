@@ -60,6 +60,26 @@ h1 {
   margin-bottom: 2rem;
 }
 
+.filter-group {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.filter-group h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.8rem;
+  color: var(--text-color);
+}
+
+.cuisine-selector,
+.heaviness-selector {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
 .radio-label {
   cursor: pointer;
 }
