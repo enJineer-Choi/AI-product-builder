@@ -1,36 +1,43 @@
-# Blueprint for Menu Recommender
+# Blueprint: Menu Recommender Application
 
 ## Overview
-This application is a simple web-based menu recommender. Users can select between "Lunch" and "Dinner" and then receive a random menu recommendation. It also includes a theme toggle for light and dark modes.
+This application helps users decide what to eat by recommending menu items based on meal type (lunch/dinner), cuisine, and heaviness preferences. It also includes a "Recommend Any" button for a completely random suggestion. The entire site is now localized for Korean users.
 
-## Current Features
-- **Meal Type Selection:** Users can choose between "Lunch" and "Dinner" via radio buttons.
-- **Menu Recommendation:** Based on the selected meal type, a random menu item is displayed.
-- **Theme Toggle:** Users can switch between light and dark modes.
-- **Responsive Design:** Basic responsiveness is implemented through CSS.
+## Project Outline
 
-## Planned Features (for current request)
+### Initial Version Features
+*   **Meal Type Selection**: Users can choose between "Lunch ☀️" and "Dinner 🌙".
+*   **Cuisine Filtering**: Options to filter by "All", "Korean (한식)", "Chinese (중식)", "Japanese (일식)", and "Western (양식)".
+*   **Heaviness Filtering**: Options to filter by "All", "Heavy 🥩", and "Light 🥗".
+*   **Recommendation Button**: A "Recommend Menu" button to get a suggestion based on selected filters.
+*   **Theme Toggle**: A button to switch between light and dark modes.
+*   **Dynamic Result Area**: Displays the recommended menu or a message if no matching menu is found.
 
-### Objective
-Add filtering capabilities to the menu recommender page for cuisine type and meal heaviness.
+### Current Version Features (Added in this iteration)
+*   **Korean Localization**: The entire user interface, including titles, labels, button texts, and all food names, has been translated into Korean.
+*   **"아무거나 추천해줘" Button**: A new button has been added below "메뉴 추천" that, when clicked, provides a completely random food recommendation from all available lunch and dinner menus, disregarding any filters.
 
-### Details
-1.  **Cuisine Filters:** Introduce radio buttons for "한식" (Korean), "중식" (Chinese), "일식" (Japanese), and "양식" (Western).
-2.  **Heaviness Filter:** Introduce radio buttons for "헤비한 것" (Heavy) and "가벼운것" (Light).
-
-### Implementation Plan
-1.  **Enhance Menu Data (main.js):**
-    *   Transform `lunchMenus` and `dinnerMenus` from arrays of strings into arrays of objects. Each object will contain `name`, `cuisine`, and `heaviness` properties.
-2.  **Modify `index.html`:**
-    *   Add new `div` containers for "Cuisine Filters" and "Heaviness Filters".
-    *   Within these containers, add `label` and `input` (radio button) elements for each filter option, similar to the existing meal type selector to maintain consistent styling and UX.
-3.  **Modify `style.css`:**
-    *   Add basic styling for the new filter containers and radio buttons to ensure visual consistency with existing elements.
-    *   Potentially adjust layout to accommodate the new filter groups.
-4.  **Modify `main.js`:**
-    *   Update `recommendMenu` function to:
-        *   Read the selected cuisine filter value.
-        *   Read the selected heaviness filter value.
-        *   Filter the `menuList` (both lunch and dinner) based on the selected cuisine and heaviness before picking a random item.
-        *   Ensure a message is displayed if no menu items match the selected filters.
-    *   Add event listeners for the new filter radio buttons to trigger the recommendation logic (or refresh the recommendation) when changed.
+## Plan for Current Change (Completed)
+1.  **Modify `index.html`**:
+    *   Changed `lang` attribute to `ko`.
+    *   Translated `<title>` to "메뉴 추천".
+    *   Translated `<h1>What to Eat?</h1>` to `<h1>오늘 뭐 먹지?</h1>`.
+    *   Translated "Lunch ☀️" to "점심 ☀️" and "Dinner 🌙" to "저녁 🌙".
+    *   Translated "Cuisine" to "음식 종류".
+    *   Translated "All" (cuisine) to "전체".
+    *   Translated "Heaviness" to "음식의 무게".
+    *   Translated "All" (heaviness) to "전체".
+    *   Translated "Heavy 🥩" to "든든한 🥩" and "Light 🥗" to "가벼운 🥗".
+    *   Translated "Select a meal type and click the button!" to "식사 종류를 선택하고 버튼을 클릭하세요!".
+    *   Translated "Recommend Menu" to "메뉴 추천".
+    *   Added a new button with `id="random-recommend-btn"` and text "아무거나 추천해줘" after the `recommend-btn`.
+2.  **Modify `main.js`**:
+    *   Added `const randomRecommendBtn = document.getElementById('random-recommend-btn');`.
+    *   Implemented `recommendRandomMenu()` function to select a random menu from all available options, regardless of filters.
+    *   Added an event listener for `randomRecommendBtn` to call `recommendRandomMenu()`.
+    *   Translated all food names in `lunchMenus` and `dinnerMenus` to Korean:
+        *   **Lunch**: 김치찌개, 버거, 클럽 샌드위치, 라면, 비빔밥, 돈까스, 까르보나라 파스타, 시저 샐러드, 서브웨이 샌드위치, 김밥.
+        *   **Dinner**: 프라이드 치킨, 페퍼로니 피자, 모듬 초밥, 삼겹살, 립아이 스테이크, 타코, 치킨 카레, 사시미, 양꼬치, 낙지볶음.
+    *   Translated "Choosing..." to "고르는 중...".
+    *   Translated "No matching menu found!" to "일치하는 메뉴를 찾을 수 없습니다!".
+    *   Disabled both recommend buttons during loading.

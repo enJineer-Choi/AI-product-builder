@@ -1,5 +1,6 @@
 const resultArea = document.getElementById('result-area');
 const recommendBtn = document.getElementById('recommend-btn');
+const randomRecommendBtn = document.getElementById('random-recommend-btn'); // New button
 const themeToggleBtn = document.getElementById('theme-toggle');
 const mealTypeRadioButtons = document.getElementsByName('meal-type');
 const cuisineTypeRadioButtons = document.getElementsByName('cuisine-type');
@@ -23,29 +24,29 @@ themeToggleBtn.addEventListener('click', () => {
 
 // Menu Data
 const lunchMenus = [
-  { name: "Kimchi Stew (Kimchi-jjigae)", cuisine: "korean", heaviness: "heavy" }, 
-  { name: "Burger", cuisine: "western", heaviness: "heavy" }, 
-  { name: "Club Sandwich", cuisine: "western", heaviness: "light" }, 
-  { name: "Ramen", cuisine: "japanese", heaviness: "heavy" }, 
-  { name: "Bibimbap", cuisine: "korean", heaviness: "light" }, 
-  { name: "Pork Cutlet (Tonkatsu)", cuisine: "japanese", heaviness: "heavy" }, 
-  { name: "Carbonara Pasta", cuisine: "western", heaviness: "heavy" }, 
-  { name: "Caesar Salad", cuisine: "western", heaviness: "light" },
-  { name: "Subway Sandwich", cuisine: "western", heaviness: "light" },
-  { name: "Gimbap", cuisine: "korean", heaviness: "light" }
+  { name: "김치찌개", cuisine: "korean", heaviness: "heavy" }, 
+  { name: "버거", cuisine: "western", heaviness: "heavy" }, 
+  { name: "클럽 샌드위치", cuisine: "western", heaviness: "light" }, 
+  { name: "라면", cuisine: "japanese", heaviness: "heavy" }, 
+  { name: "비빔밥", cuisine: "korean", heaviness: "light" }, 
+  { name: "돈까스", cuisine: "japanese", heaviness: "heavy" }, 
+  { name: "까르보나라 파스타", cuisine: "western", heaviness: "heavy" }, 
+  { name: "시저 샐러드", cuisine: "western", heaviness: "light" },
+  { name: "서브웨이 샌드위치", cuisine: "western", heaviness: "light" },
+  { name: "김밥", cuisine: "korean", heaviness: "light" }
 ];
 
 const dinnerMenus = [
-  { name: "Fried Chicken", cuisine: "western", heaviness: "heavy" }, 
-  { name: "Pepperoni Pizza", cuisine: "western", heaviness: "heavy" }, 
-  { name: "Sushi Platter", cuisine: "japanese", heaviness: "light" }, 
-  { name: "Grilled Pork Belly (Samgyeopsal)", cuisine: "korean", heaviness: "heavy" }, 
-  { name: "Ribeye Steak", cuisine: "western", heaviness: "heavy" }, 
-  { name: "Tacos", cuisine: "western", heaviness: "heavy" }, 
-  { name: "Chicken Curry", cuisine: "indian", heaviness: "heavy" }, // Added Indian for variety
-  { name: "Sashimi", cuisine: "japanese", heaviness: "light" },
-  { name: "Lamb Skewers", cuisine: "chinese", heaviness: "heavy" },
-  { name: "Spicy Stir-fried Octopus", cuisine: "korean", heaviness: "heavy" }
+  { name: "프라이드 치킨", cuisine: "western", heaviness: "heavy" }, 
+  { name: "페퍼로니 피자", cuisine: "western", heaviness: "heavy" }, 
+  { name: "모듬 초밥", cuisine: "japanese", heaviness: "light" }, 
+  { name: "삼겹살", cuisine: "korean", heaviness: "heavy" }, 
+  { name: "립아이 스테이크", cuisine: "western", heaviness: "heavy" }, 
+  { name: "타코", cuisine: "western", heaviness: "heavy" }, 
+  { name: "치킨 카레", cuisine: "indian", heaviness: "heavy" }, 
+  { name: "사시미", cuisine: "japanese", heaviness: "light" },
+  { name: "양꼬치", cuisine: "chinese", heaviness: "heavy" },
+  { name: "낙지볶음", cuisine: "korean", heaviness: "heavy" }
 ];
 
 function getSelectedRadioValue(radioElements) {
@@ -75,21 +76,41 @@ function recommendMenu() {
   }
 
   // Simple loading effect
-  resultArea.innerHTML = '<span class="placeholder">Choosing...</span>';
+  resultArea.innerHTML = '<span class="placeholder">고르는 중...</span>';
   recommendBtn.disabled = true;
+  randomRecommendBtn.disabled = true; // Disable random button too
 
   setTimeout(() => {
     if (menuList.length === 0) {
-      resultArea.innerHTML = '<div class="result-text" style="font-size:1.2rem;">No matching menu found!</div>';
+      resultArea.innerHTML = '<div class="result-text" style="font-size:1.2rem;">일치하는 메뉴를 찾을 수 없습니다!</div>';
     } else {
       const randomMenu = menuList[Math.floor(Math.random() * menuList.length)];
       resultArea.innerHTML = `<div class="result-text">${randomMenu.name}</div>`;
     }
     recommendBtn.disabled = false;
+    randomRecommendBtn.disabled = false; // Enable random button
   }, 500);
 }
 
+function recommendRandomMenu() {
+  // Combine all menus
+  const allMenus = [...lunchMenus, ...dinnerMenus];
+
+  resultArea.innerHTML = '<span class="placeholder">고르는 중...</span>';
+  recommendBtn.disabled = true;
+  randomRecommendBtn.disabled = true;
+
+  setTimeout(() => {
+    const randomMenu = allMenus[Math.floor(Math.random() * allMenus.length)];
+    resultArea.innerHTML = `<div class="result-text">${randomMenu.name}</div>`;
+    recommendBtn.disabled = false;
+    randomRecommendBtn.disabled = false;
+  }, 500);
+}
+
+
 recommendBtn.addEventListener('click', recommendMenu);
+randomRecommendBtn.addEventListener('click', recommendRandomMenu); // New event listener
 
 // Add event listeners to meal type and new filter radio buttons to trigger recommendation
 mealTypeRadioButtons.forEach(radio => radio.addEventListener('change', recommendMenu));
