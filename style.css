@@ -130,6 +130,10 @@ h1 {
 }
 
 #recommend-btn {
+  /* No longer needed here, styles moved to .recommend-button */
+}
+
+.recommend-button {
   padding: 1rem 2rem;
   font-size: 1.1rem;
   cursor: pointer;
@@ -142,12 +146,12 @@ h1 {
   width: 100%;
 }
 
-#recommend-btn:hover {
+.recommend-button:hover {
   opacity: 0.9;
   transform: translateY(-1px);
 }
 
-#recommend-btn:active {
+.recommend-button:active {
   transform: translateY(1px);
 }
 

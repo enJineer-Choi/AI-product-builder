@@ -1,7 +1,7 @@
 # Blueprint: Menu Recommender Application
 
 ## Overview
-This application helps users decide what to eat by recommending menu items based on meal type (lunch/dinner), cuisine, and heaviness preferences. It also includes a "Recommend Any" button for a completely random suggestion. The entire site is now localized for Korean users, and users can save and view a list of menus they have eaten.
+This application helps users decide what to eat by recommending menu items based on meal type (lunch/dinner), cuisine, and how they feel like eating. It also includes a "Recommend Any" button for a completely random suggestion. The entire site is now localized for Korean users, and users can save and view a list of menus they have eaten.
 
 ## Project Outline
 
@@ -13,15 +13,19 @@ This application helps users decide what to eat by recommending menu items based
 *   **Theme Toggle**: A button to switch between light and dark modes.
 *   **Dynamic Result Area**: Displays the recommended menu or a message if no matching menu is found.
 
-### Current Version Features (Added in previous iteration)
+### Current Version Features (Added in previous iteration 1)
 *   **Korean Localization**: The entire user interface, including titles, labels, button texts, and all food names, has been translated into Korean.
 *   **"아무거나 추천해줘" Button**: A new button has been added below "메뉴 추천" that, when clicked, provides a completely random food recommendation from all available lunch and dinner menus, disregarding any filters.
 
-### New Features (Added in this iteration)
+### New Features (Added in previous iteration 2)
 *   **"오늘 먹은 메뉴 저장" Button**: A button to save the currently recommended menu to a list of "eaten menus".
 *   **Saved Menus Display**: A section to display all saved eaten menus.
 *   **Persistent Storage**: Saved menus are stored in the browser's `localStorage` to persist across sessions.
 *   **Delete Saved Menu**: Each saved menu item has a "삭제" (delete) button to remove it from the list.
+
+### Updates in this iteration
+*   **"아무거나 추천해줘" Button Styling**: The "아무거나 추천해줘" button now shares the same visual style as the "메뉴 추천" button.
+*   **Translation Update**: The label "음식의 무게" has been changed to "어떻게 드시고 싶으세요?" for better user experience.
 
 ## Plan for Current Change (Completed)
 1.  **Modify `index.html`**:
@@ -38,6 +42,7 @@ This application helps users decide what to eat by recommending menu items based
     *   Translated "Recommend Menu" to "메뉴 추천".
     *   Added a new button with `id="random-recommend-btn"` and text "아무거나 추천해줘" after the `recommend-btn`.
     *   Added a "오늘 먹은 메뉴 저장" button (`id="save-menu-btn"`) and a `div` for saved menus (`id="saved-menus-list"`) after the random-recommend button.
+    *   **Updated in this iteration**: Translated "음식의 무게" to "어떻게 드시고 싶으세요?". Applied `class="recommend-button"` to both `recommend-btn` and `random-recommend-btn`, removing inline styling from `random-recommend-btn`.
 2.  **Modify `main.js`**:
     *   Added `const randomRecommendBtn = document.getElementById('random-recommend-btn');`.
     *   Implemented `recommendRandomMenu()` function to select a random menu from all available options, regardless of filters.
@@ -55,3 +60,5 @@ This application helps users decide what to eat by recommending menu items based
     *   Implemented `deleteSavedMenu(index)` to remove a menu from `localStorage`.
     *   Added event listener for `saveMenuBtn` to call `saveCurrentMenu()`.
     *   Called `loadSavedMenus()` on `DOMContentLoaded`.
+3.  **Modify `style.css`**:
+    *   **Added in this iteration**: Defined `.recommend-button` class with common button styles. Removed duplicate styles from `#recommend-btn` and `#random-recommend-btn` (implicitly by applying the class).
